@@ -54,10 +54,10 @@
   <div id="default-carousel" class="relative w-full mt-6" data-carousel="slide">
     <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
       <div class="hidden duration-700 ease-in-out" data-carousel-item>
-        <img src="{{ asset('images/riki.jpg') }}" class="absolute block w-full h-full object-cover" alt="riki">
+        <img src="{{ asset('images/(1).png') }}" class="absolute block w-full h-full object-cover" alt="riki">
       </div>
       <div class="hidden duration-700 ease-in-out" data-carousel-item>
-        <img src="{{ asset('images/delan.jpg') }}" class="absolute block w-full h-full object-cover" alt="delan">
+        <img src="{{ asset('images/demo.png') }}" class="absolute block w-full h-full object-cover" alt="delan">
       </div>
     </div>
     <div class="absolute z-30 flex -translate-x-1/2 bottom-4 left-1/2 space-x-3">
@@ -91,7 +91,7 @@
       @for ($i = 1; $i <= 8; $i++)
       <div class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
         <a href="#">
-          <img class="w-full h-40 object-cover" src="{{ asset('images/delan.jpg') }}" alt="Produk {{ $i }}">
+          <img class="w-full h-40 object-cover" src="{{ asset('images/nike/bola-vini.jpg') }}" alt="Produk {{ $i }}">
         </a>
         <div class="p-4">
           <a href="#"><h5 class="text-xl font-bold text-indigo-800 mb-2">Produk Menarik {{ $i }}</h5></a>
@@ -134,7 +134,7 @@
     <div class="max-w-screen-xl mx-auto text-center">
       <h2 class="text-3xl font-bold text-emerald-700 mb-4">Tentang Kami</h2>
       <p class="text-gray-700 text-lg">
-        TokoKita adalah platform e-commerce yang menyediakan berbagai produk berkualitas dengan harga terjangkau.
+        ADDsports adalah platform e-commerce yang menghadirkan perlengkapan olahraga berkualitas tinggi untuk menunjang semangat berolahraga Anda.
         Kami berkomitmen untuk memberikan pengalaman belanja yang nyaman dan aman bagi pelanggan kami.
       </p>
     </div>
@@ -144,7 +144,7 @@
   <footer class="bg-indigo-800 text-white py-8 mt-16">
     <div class="max-w-screen-xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
       <div>
-        <h4 class="font-bold text-lg mb-2">TokoKita</h4>
+        <h4 class="font-bold text-lg mb-2">ADDsports</h4>
         <p>Solusi belanja modern dengan produk terbaik dan harga terjangkau.</p>
       </div>
       <div>
@@ -157,12 +157,12 @@
       </div>
       <div>
         <h4 class="font-bold text-lg mb-2">Hubungi Kami</h4>
-        <p>Email: info@tokokita.com</p>
-        <p>Telp: +62 812 3456 7890</p>
+        <p>Email: addsport@realme.com</p>
+        <p>Telp: +62 823 8602 9720</p>
       </div>
     </div>
     <div class="mt-8 text-center text-gray-300 text-xs">
-      &copy; 2025 TokoKita. All rights reserved.
+      &copy; 2025 ADDsports. All rights reserved.
     </div>
   </footer>
 

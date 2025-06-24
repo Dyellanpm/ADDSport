@@ -30,7 +30,7 @@
     <div class="w-full md:w-1/2 px-8 py-12 md:p-16 flex flex-col justify-center bg-gray-50">
       <div class="text-center mb-8">
         <h2 class="text-3xl font-bold text-indigo-700">Buat Akun Baru</h2>
-        <p class="text-gray-600 text-sm">Mulai belanja hemat dan mudah di <span class="font-semibold text-emerald-500">TokoKita</span>!</p>
+        <p class="text-gray-600 text-sm">Mulai belanja hemat dan mudah di <span class="font-semibold text-emerald-500">ADDsports!</span></p>
       </div>
 
       <form method="POST" action="{{ route('register') }}" class="space-y-5">

@@ -30,7 +30,7 @@
     <div class="w-full md:w-1/2 px-8 py-12 md:p-16 flex flex-col justify-center bg-gray-50">
       <div class="text-center mb-8">
         <h2 class="text-3xl font-bold text-indigo-700">Masuk ke Akun Anda</h2>
-        <p class="text-sm text-gray-600">Selamat datang kembali di <span class="text-emerald-500 font-semibold">TokoKita</span></p>
+        <p class="text-sm text-gray-600">Selamat datang kembali di <span class="text-emerald-500 font-semibold">ADDsports</span></p>
       </div>
 
       {{-- Session Status --}}
