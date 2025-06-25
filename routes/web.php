@@ -6,15 +6,20 @@ use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/pembeli', function () {
+    return view('pembeli.pembeli');
+})->middleware(['auth'])->name('pembeli.dashboard');
+
+
+Route::get('/dashboard', function () {
+    return view('admin.dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route Frontend Bagian Admin
 Route::get('/pesanan', [PesananController::class, 'index'])->name('pesanan.index');
