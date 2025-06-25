@@ -4,7 +4,7 @@
 
 @section('content')
   <!-- SECTION: Cards -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 mt-10">
     <div class="rounded-2xl shadow-lg p-6 text-white bg-gradient-to-br from-indigo-500 to-indigo-700">
       <h2 class="text-lg font-semibold">Total Produk</h2>
       <p class="text-3xl font-bold mt-2">120</p>

@@ -3,7 +3,7 @@
 @section('title', 'Manajemen Pesanan')
 
 @section('content')
-  <div class="mb-4 flex justify-between items-center">
+  <div class="mb-4 mt-10 flex justify-between items-center">
     <h2 class="text-xl font-bold text-[#483AA0]">Daftar Pesanan</h2>
   </div>
 
