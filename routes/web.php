@@ -6,10 +6,6 @@ use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -31,5 +27,6 @@ Route::post('/produk', [ProductController::class, 'store'])->name('products.stor
 Route::get('/produk/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
 Route::put('/produk/{product}', [ProductController::class, 'update'])->name('products.update');
 Route::delete('/produk/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+Route::get('/', [ProductController::class, 'landing']);
 
 require __DIR__.'/auth.php';

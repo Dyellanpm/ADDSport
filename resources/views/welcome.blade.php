@@ -86,27 +86,42 @@
   </section>
 
   <!-- Items Section -->
-  <section id="items" class="py-16 px-6 bg-blue-50">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-screen-xl mx-auto">
-      @for ($i = 1; $i <= 8; $i++)
+<section id="items" class="py-16 px-6 bg-blue-50">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-screen-xl mx-auto">
+    @foreach ($products as $product)
       <div class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
         <a href="#">
-          <img class="w-full h-40 object-cover" src="{{ asset('images/nike/bola-vini.jpg') }}" alt="Produk {{ $i }}">
+          @if ($product->gambar)
+            <div class="w-full h-60 flex items-center justify-center bg-white">
+                <img class="max-h-full object-contain" src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->nama }}">
+              </div>
+          @else
+            <div class="w-full h-40 bg-gray-100 flex items-center justify-center">
+              <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+            </div>
+          @endif
         </a>
         <div class="p-4">
-          <a href="#"><h5 class="text-xl font-bold text-indigo-800 mb-2">Produk Menarik {{ $i }}</h5></a>
-          <p class="text-gray-600 text-sm mb-3">Temukan produk ke-{{ $i }} terbaik untuk kebutuhanmu.</p>
-          <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300">
+          <h5 class="text-xl font-bold text-indigo-800 mb-2">{{ $product->nama }}</h5>
+          <p class="text-gray-600 text-sm mb-3">Kategori: {{ $product->kategori }}</p>
+          <p class="text-gray-700 font-semibold mb-2">Rp{{ number_format($product->harga, 0, ',', '.') }}</p>
+          <a href="#"
+             class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300">
             Lihat Detail
             <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M1 5h12m0 0L9 1m4 4L9 9"/>
             </svg>
           </a>
         </div>
       </div>
-      @endfor
-    </div>
-  </section>
+    @endforeach
+  </div>
+</section>
+
 
   <!-- Testimonials Section -->
   <section class="py-16 px-6 bg-white">

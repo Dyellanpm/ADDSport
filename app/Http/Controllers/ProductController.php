@@ -14,6 +14,12 @@ class ProductController extends Controller
         return view('admin.produk.index', compact('products'));
     }
 
+    public function landing()
+    {
+        $products = Product::latest()->take(8)->get(); // ambil 8 produk
+        return view('welcome', compact('products'));
+    }
+
     // Form tambah produk
     public function create()
     {
