@@ -20,8 +20,13 @@
 
     <!-- Kategori -->
     <div>
-      <label for="kategori" class="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
-      <input type="text" name="kategori" id="kategori" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required>
+      <label for="kategori_id" class="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
+      <select name="kategori_id" id="kategori_id" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required>
+        <option value="">-- Pilih Kategori --</option>
+        @foreach ($kategoris as $kategori)
+          <option value="{{ $kategori->id }}">{{ $kategori->nama }}</option>
+        @endforeach
+      </select>
     </div>
 
     <!-- Deskripsi -->
@@ -50,7 +55,7 @@
 
     <!-- Gambar -->
     <div>
-      <label for="gambar" class="block text-sm font-medium text-gray-700 mb-1">Gambar </label>
+      <label for="gambar" class="block text-sm font-medium text-gray-700 mb-1">Gambar</label>
       <input type="file" name="gambar" id="gambar" class="w-full text-sm border-gray-300 rounded-lg shadow-sm" required>
     </div>
 

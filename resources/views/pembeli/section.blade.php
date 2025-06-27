@@ -4,62 +4,100 @@
 
 @section('content')
 <div class="max-w-6xl mx-auto px-4 py-10">
-    <!-- Bagian Detail Produk -->
+
+    <div class="mb-8">
+    <a href="{{ url('/kategori/' . $product->kategori->slug) }}"
+       class="inline-flex items-center gap-2 bg-white hover:bg-yellow-100 text-yellow-700 border border-yellow-400 px-5 py-2 rounded-full text-sm font-semibold shadow transition duration-200">
+        ← Kembali Belanja
+    </a>
+</div>
+
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
         <!-- Gambar Produk -->
         <div>
-            <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=700&h=500&fit=crop" alt="Sepatu Lari" class="rounded-2xl shadow-xl w-full object-cover">
+            <img
+                src="{{ asset('storage/' . $product->gambar) }}"
+                alt="{{ $product->nama }}"
+                class="rounded-2xl shadow-xl w-full object-cover">
         </div>
 
         <!-- Informasi Produk -->
         <div>
-            <h1 class="text-3xl font-bold text-gray-800 mb-2">Sepatu Lari Premium Nike Air Max</h1>
-            <span class="inline-block bg-indigo-100 text-indigo-600 text-sm px-3 py-1 rounded-full mb-4">Kategori: Lari</span>
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">{{ $product->nama }}</h1>
+            <span class="inline-block bg-indigo-100 text-indigo-600 text-sm px-3 py-1 rounded-full mb-4">
+                Kategori: {{ $product->kategori->nama ?? '-' }}
+            </span>
 
             <p class="text-gray-600 mb-4 leading-relaxed">
-                Didesain untuk kenyamanan maksimal dengan teknologi Air Max terbaru. Cocok digunakan untuk aktivitas olahraga maupun sehari-hari.
+                {{ $product->deskripsi }}
             </p>
 
-            <div class="text-2xl font-extrabold text-indigo-700 mb-6">Rp 1.299.000</div>
-
-            <div class="mb-6">
-                <label for="size" class="block text-sm font-medium text-gray-700 mb-1">Pilih Ukuran</label>
-                <select id="size" name="size" class="w-full border border-gray-300 rounded-xl p-2">
-                    <option value="">-- Pilih Ukuran --</option>
-                    <option>39</option>
-                    <option>40</option>
-                    <option>41</option>
-                    <option>42</option>
-                    <option>43</option>
-                </select>
+            <div class="text-2xl font-extrabold text-indigo-700 mb-6">
+                Rp {{ number_format($product->harga, 0, ',', '.') }}
             </div>
+
+            <form action="{{ route('pembeli.keranjang.tambah') }}" method="POST" class="space-y-6">
+                @csrf
+                <input type="hidden" name="produk_id" value="{{ $product->id }}">
+
+                <div>
+                    <label for="size" class="block text-sm font-medium text-gray-700 mb-1">Ukuran Tersedia</label>
+                    <select id="size" name="size" class="w-full border border-gray-300 rounded-xl p-2">
+                        <option value="">-- Pilih Ukuran --</option>
+                        @foreach (explode(',', $product->size) as $size)
+                        <option value="{{ trim($size) }}">{{ trim($size) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div>
+                    <label for="qty" class="block text-sm font-medium text-gray-700 mb-1">Jumlah</label>
+                    <input type="number" id="qty" name="qty" min="1" value="1"
+                           class="w-full border border-gray-300 rounded-xl p-2">
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4">
+                    <button type="submit"
+                        class="w-full md:w-auto bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-6 rounded-xl shadow transition">
+                        🛒 Tambah ke Keranjang
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
-    <!-- Form Checkout -->
-    <div id="checkout-form" class="mt-16 bg-white shadow-xl rounded-2xl p-8">
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">Formulir Pembelian</h2>
-        <form>
+    <!-- 🔽 Form Checkout Langsung -->
+    <div id="form-checkout" class="mt-20 bg-white shadow-xl rounded-2xl p-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Formulir Pembelian Langsung</h2>
+        <form action="{{ route('pembeli.checkout') }}" method="GET">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
                     <label for="nama" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
-                    <input type="text" id="nama" class="w-full border border-gray-300 rounded-xl p-3" placeholder="Masukkan nama Anda">
+                    <input type="text" id="nama" name="nama"
+                        class="w-full border border-gray-300 rounded-xl p-3"
+                        placeholder="Masukkan nama Anda">
                 </div>
                 <div>
                     <label for="no_hp" class="block text-sm font-medium text-gray-700 mb-1">No. HP</label>
-                    <input type="text" id="no_hp" class="w-full border border-gray-300 rounded-xl p-3" placeholder="08XXXXXXXXXX">
+                    <input type="text" id="no_hp" name="no_hp"
+                        class="w-full border border-gray-300 rounded-xl p-3"
+                        placeholder="08XXXXXXXXXX">
                 </div>
             </div>
 
             <div class="mb-6">
                 <label for="alamat" class="block text-sm font-medium text-gray-700 mb-1">Alamat Pengiriman</label>
-                <textarea id="alamat" rows="4" class="w-full border border-gray-300 rounded-xl p-3" placeholder="Masukkan alamat lengkap"></textarea>
+                <textarea id="alamat" name="alamat" rows="4"
+                    class="w-full border border-gray-300 rounded-xl p-3"
+                    placeholder="Masukkan alamat lengkap"></textarea>
             </div>
 
-            <a href="{{ route('pembeli.checkout') }}" class="block w-full text-center bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl">
-    Checkout Sekarang
-</a>
-
+            <button type="submit"
+                class="block w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl">
+                Checkout Sekarang
+            </button>
+        </form>
     </div>
 </div>
 @endsection

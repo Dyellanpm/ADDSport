@@ -34,10 +34,17 @@
 
     <!-- Kategori -->
     <div>
-      <label for="kategori" class="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
-      <input type="text" name="kategori" id="kategori"
-             value="{{ old('kategori', $product->kategori) }}"
-             class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required>
+      <label for="kategori_id" class="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
+      <select name="kategori_id" id="kategori_id"
+              class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required>
+        <option value="">-- Pilih Kategori --</option>
+        @foreach ($kategoris as $kategori)
+          <option value="{{ $kategori->id }}"
+            {{ old('kategori_id', $product->kategori_id) == $kategori->id ? 'selected' : '' }}>
+            {{ $kategori->nama }}
+          </option>
+        @endforeach
+      </select>
     </div>
 
     <!-- Deskripsi -->

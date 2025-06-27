@@ -7,16 +7,18 @@ use Illuminate\Http\Request;
 
 class PembeliController extends Controller
 {
-    public function beranda()
+    public function berandaPembeli()
     {
-        $products = Product::latest()->take(8)->get();
+        $products = Product::latest()->take(6)->get();
         return view('pembeli.pembeli', compact('products'));
     }
 
-    public function index()
+    public function show($id)
     {
-        return view('pembeli.section');
+        $product = Product::findOrFail($id);
+        return view('pembeli.section', compact('product'));
     }
+    
 
     public function checkout()
     {

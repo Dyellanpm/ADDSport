@@ -23,8 +23,8 @@
           <th class="px-4 py-3">Gambar</th>
           <th class="px-4 py-3">Produk</th>
           <th class="px-4 py-3">Kategori</th>
-          <th class="px-4 py-3">Deskripsi</th> <!-- baru -->
-          <th class="px-4 py-3">Ukuran</th>     <!-- baru -->
+          <th class="px-4 py-3">Deskripsi</th>
+          <th class="px-4 py-3">Ukuran</th>
           <th class="px-4 py-3">Harga</th>
           <th class="px-4 py-3">Stok</th>
           <th class="px-4 py-3 text-center">Aksi</th>
@@ -35,7 +35,6 @@
           <tr class="border-b hover:bg-gray-50">
             <td class="px-4 py-3">{{ $index + 1 }}</td>
 
-            <!-- Gambar -->
             <td class="px-4 py-3">
               @if ($product->gambar)
                 <img src="{{ asset('storage/' . $product->gambar) }}" alt="Gambar"
@@ -50,22 +49,23 @@
               @endif
             </td>
 
-            <!-- Nama -->
             <td class="px-4 py-3">
               <div class="font-semibold">{{ $product->nama }}</div>
               <div class="text-xs text-gray-500">ID: {{ $product->id }}</div>
             </td>
 
-            <td class="px-4 py-3">{{ $product->kategori }}</td>
-            <td class="px-4 py-3 truncate max-w-xs">{{ $product->deskripsi }}</td> <!-- baru -->
-            <td class="px-4 py-3">{{ $product->size }}</td> <!-- baru -->
+            <!-- Kategori dari relasi -->
+            <td class="px-4 py-3">
+              {{ $product->kategori->nama ?? '-' }}
+            </td>
+
+            <td class="px-4 py-3 truncate max-w-xs">{{ $product->deskripsi }}</td>
+            <td class="px-4 py-3">{{ $product->size }}</td>
             <td class="px-4 py-3">Rp{{ number_format($product->harga, 0, ',', '.') }}</td>
             <td class="px-4 py-3">{{ $product->stok > 0 ? $product->stok . ' pcs' : 'Habis' }}</td>
 
-            <!-- Aksi -->
             <td class="px-6 py-4 text-center">
               <div class="flex justify-center space-x-2">
-                <!-- Edit -->
                 <a href="{{ route('products.edit', $product) }}"
                    class="w-9 h-9 flex items-center justify-center rounded-lg bg-yellow-500 hover:bg-yellow-600 text-white shadow transition">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -74,7 +74,6 @@
                   </svg>
                 </a>
 
-                <!-- Delete -->
                 <form action="{{ route('products.destroy', $product) }}" method="POST"
                       onsubmit="return confirm('Yakin ingin menghapus produk ini?')">
                   @csrf @method('DELETE')
