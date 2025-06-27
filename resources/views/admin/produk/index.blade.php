@@ -23,6 +23,8 @@
           <th class="px-4 py-3">Gambar</th>
           <th class="px-4 py-3">Produk</th>
           <th class="px-4 py-3">Kategori</th>
+          <th class="px-4 py-3">Deskripsi</th> <!-- baru -->
+          <th class="px-4 py-3">Ukuran</th>     <!-- baru -->
           <th class="px-4 py-3">Harga</th>
           <th class="px-4 py-3">Stok</th>
           <th class="px-4 py-3 text-center">Aksi</th>
@@ -55,6 +57,8 @@
             </td>
 
             <td class="px-4 py-3">{{ $product->kategori }}</td>
+            <td class="px-4 py-3 truncate max-w-xs">{{ $product->deskripsi }}</td> <!-- baru -->
+            <td class="px-4 py-3">{{ $product->size }}</td> <!-- baru -->
             <td class="px-4 py-3">Rp{{ number_format($product->harga, 0, ',', '.') }}</td>
             <td class="px-4 py-3">{{ $product->stok > 0 ? $product->stok . ' pcs' : 'Habis' }}</td>
 
@@ -87,7 +91,7 @@
           </tr>
         @empty
           <tr>
-            <td colspan="7" class="text-center py-6 text-gray-500">Belum ada produk tersedia.</td>
+            <td colspan="9" class="text-center py-6 text-gray-500">Belum ada produk tersedia.</td>
           </tr>
         @endforelse
       </tbody>

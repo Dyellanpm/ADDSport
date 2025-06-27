@@ -14,9 +14,10 @@ class ProductController extends Controller
         return view('admin.produk.index', compact('products'));
     }
 
+    // Tampilkan 8 produk di landing page
     public function landing()
     {
-        $products = Product::latest()->take(8)->get(); // ambil 8 produk
+        $products = Product::latest()->take(8)->get();
         return view('welcome', compact('products'));
     }
 
@@ -30,16 +31,16 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama' => 'required|string',
-            'kategori' => 'required|string',
-            'harga' => 'required|integer',
-            'stok' => 'required|integer',
-            'gambar' => 'nullable|image|max:2048',
-        ]);
+        'nama' => 'required|string',
+        'kategori' => 'required|string',
+        'deskripsi' => 'nullable|string',
+        'size' => 'nullable|string',
+        'harga' => 'required|integer',
+        'stok' => 'required|integer',
+        'gambar' => 'required|image|max:2048', // ubah nullable jadi required
+    ]);
 
-        if ($request->hasFile('gambar')) {
-            $validated['gambar'] = $request->file('gambar')->store('products', 'public');
-        }
+        $validated['gambar'] = $request->file('gambar')->store('products', 'public');
 
         Product::create($validated);
 
@@ -58,6 +59,8 @@ class ProductController extends Controller
         $validated = $request->validate([
             'nama' => 'required|string',
             'kategori' => 'required|string',
+            'deskripsi' => 'nullable|string',  // <- ditambahkan
+            'size' => 'nullable|string',       // <- ditambahkan
             'harga' => 'required|integer',
             'stok' => 'required|integer',
             'gambar' => 'nullable|image|max:2048',
