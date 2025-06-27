@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PembeliController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
@@ -12,10 +13,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/pembeli', function () {
-    return view('pembeli.pembeli');
-})->middleware(['auth'])->name('pembeli.dashboard');
+Route::get('/pembeli', [PembeliController::class, 'beranda'])
+    ->middleware(['auth'])
+    ->name('pembeli.dashboard');
 
+Route::get('/pembelian', [PembeliController::class, 'index'])->name('pembeli.section');
+Route::get('/pembelian/checkout', [PembeliController::class, 'checkout'])->name('pembeli.checkout');
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
