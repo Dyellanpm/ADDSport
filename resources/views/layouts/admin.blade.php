@@ -11,6 +11,7 @@
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <style>
             html {
                 scroll-behavior: smooth;
@@ -122,6 +123,7 @@
             ::-webkit-scrollbar-thumb:hover {
                 background: #2563eb;
             }
+            
         </style>
     </head>
     <body
@@ -163,7 +165,7 @@
                         {{ substr(Auth::user()->name, 0, 1) }}
                     </div>
                     <div>
-                        <p class="text-white font-semibold text-sm">{{ Auth::user()->name }}</p>
+                        <p class="text-black font-semibold text-sm">{{ Auth::user()->name }}</p>
                         <p class="text-blue-200 text-xs">{{ Auth::user()->email ?? 'admin@addsports.com' }}</p>
                     </div>
                 </div>
@@ -198,21 +200,21 @@
                         </div>
                     </a>
 
-                    <a
-                        href="{{ route('pesanan.index') }}"
-                        class="nav-item flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->routeIs('pesanan.*') ? 'bg-white/20 text-white shadow-lg backdrop-blur-sm' : 'hover:bg-white/10 text-white/80 hover:text-white' }} mt-2">
-                        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-shopping-cart text-sm"></i>
-                        </div>
-                        <div>
-                            <span class="font-medium">Pesanan</span>
-                            <p class="text-xs text-blue-200">Kelola Pesanan</p>
-                        </div>
-                        <span class="ml-auto bg-red-500 text-xs px-2 py-1 rounded-full">3</span>
-                    </a>
+                   <a
+                    href="{{ route('pesanan.index') }}"
+                    class="nav-item flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->routeIs('pesanan.*') ? 'bg-white/20 text-white shadow-lg backdrop-blur-sm' : 'hover:bg-white/10 text-white/80 hover:text-white' }} mt-2">
+                    <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-shopping-cart text-sm"></i>
+                    </div>
+                    <div>
+                        <span class="font-medium">Pesanan</span>
+                        <p class="text-xs text-blue-200">Kelola Pesanan</p>
+                    </div>
+                </a>
+
 
                     <a
-                        href="{{ route('pengguna.index') }}"
+                        href="{{ route('admin.users.index') }}"
                         class="nav-item flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->routeIs('pengguna.*') ? 'bg-white/20 text-white shadow-lg backdrop-blur-sm' : 'hover:bg-white/10 text-white/80 hover:text-white' }} mt-2">
                         <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center">
                             <i class="fas fa-users text-sm"></i>
@@ -263,6 +265,6 @@
                 @yield('content')
             </main>
         </div>
-
+@stack('scripts')
     </body>
 </html>

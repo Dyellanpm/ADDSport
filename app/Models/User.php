@@ -46,4 +46,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function keranjang()
+    {
+        return $this->hasMany(\App\Models\Keranjang::class);
+    }
+
 }

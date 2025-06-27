@@ -3,49 +3,43 @@
 @section('title', 'Manajemen Pengguna')
 
 @section('content')
-  <div class="mb-4 mt-10 flex justify-between items-center">
-    <h2 class="text-xl font-bold text-[#483AA0]">Daftar Pengguna</h2>
+<div class="container mx-auto px-4 py-6 mt-8">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">Daftar Pengguna</h2>
   </div>
 
-  <div class="mb-4 flex justify-between items-center">
-    <a
-        href="#"
-        class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded text-sm">
-        + Tambah Pengguna
-    </a>
-</div>
+  @if(session('success'))
+    <div class="mb-6 rounded-lg bg-green-100 text-green-800 px-4 py-3 text-sm shadow">
+      {{ session('success') }}
+    </div>
+  @endif
 
   <div class="overflow-x-auto bg-white rounded-lg shadow border border-gray-200">
     <table class="min-w-full divide-y divide-gray-200 text-sm">
-      <thead class="bg-[#483AA0] text-white">
-        <tr>
-          <th class="px-6 py-3 text-left font-semibold">ID</th>
-          <th class="px-6 py-3 text-left font-semibold">Nama</th>
-          <th class="px-6 py-3 text-left font-semibold">Email</th>
-          <th class="px-6 py-3 text-left font-semibold">Role</th>
-          <th class="px-6 py-3 text-left font-semibold">Aksi</th>
+      <thead class="bg-gray-100 text-xs uppercase text-gray-600">
+        <tr class="border-b">
+          <th class="px-4 py-3 text-left font-semibold">ID</th>
+          <th class="px-4 py-3 text-left font-semibold">Nama</th>
+          <th class="px-4 py-3 text-left font-semibold">Email</th>
+          <th class="px-4 py-3 text-left font-semibold">Role</th>
+          {{-- Kolom aksi dihapus --}}
         </tr>
       </thead>
       <tbody class="divide-y divide-gray-100">
-        @foreach ([1,2,3] as $id)
-          <tr>
-            <td class="px-6 py-4">USR00{{ $id }}</td>
-            <td class="px-6 py-4">User {{ $id }}</td>
-            <td class="px-6 py-4">user{{ $id }}@addsports.id</td>
-            <td class="px-6 py-4">Customer</td>
-            <td class="px-6 py-4 space-x-2">
-              <a href="#" class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded text-xs">Edit</a>
-              <form action="#" method="POST" class="inline">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs">
-                  Hapus
-                </button>
-              </form>
-            </td>
+        @forelse ($users as $user)
+          <tr class="border-b hover:bg-gray-50">
+            <td class="px-4 py-3">USR{{ str_pad($user->id, 4, '0', STR_PAD_LEFT) }}</td>
+            <td class="px-4 py-3">{{ $user->name }}</td>
+            <td class="px-4 py-3">{{ $user->email }}</td>
+            <td class="px-4 py-3 capitalize">{{ $user->role }}</td>
           </tr>
-        @endforeach
+        @empty
+          <tr>
+            <td colspan="4" class="px-4 py-3 text-center text-gray-500">Belum ada pengguna terdaftar.</td>
+          </tr>
+        @endforelse
       </tbody>
     </table>
   </div>
+</div>
 @endsection

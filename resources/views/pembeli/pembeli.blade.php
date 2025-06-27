@@ -104,6 +104,55 @@
     </div>
 </main>
 
+{{-- ✅ Riwayat Pembelian Terakhir --}}
+<section class="max-w-7xl mx-auto px-6 py-12">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Riwayat Terakhir Kamu</h2>
+
+    @if ($riwayat->isEmpty())
+        <p class="text-gray-600">Kamu belum pernah melakukan pembelian.</p>
+    @else
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            @foreach ($riwayat as $pesanan)
+                <div class="bg-gradient-to-tr from-indigo-100 to-purple-100 p-1 rounded-2xl shadow-md hover:shadow-lg transition">
+                    <div class="bg-white rounded-2xl p-5">
+                        <div class="flex justify-between items-center mb-3">
+                            <div>
+                                <p class="text-sm text-gray-500">#ORD{{ str_pad($pesanan->id, 4, '0', STR_PAD_LEFT) }}</p>
+                                <p class="font-semibold text-gray-800">{{ $pesanan->created_at->format('d M Y') }}</p>
+                            </div>
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full
+                                @if($pesanan->status === 'Selesai') bg-green-100 text-green-700
+                                @elseif($pesanan->status === 'Dibatalkan') bg-red-100 text-red-700
+                                @else bg-yellow-100 text-yellow-700 @endif">
+                                {{ $pesanan->status }}
+                            </span>
+                        </div>
+
+                        <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 mb-3">
+                            @foreach ($pesanan->items as $item)
+                                <li>{{ $item->produk->nama ?? '[Produk dihapus]' }} (x{{ $item->qty }})</li>
+                            @endforeach
+                        </ul>
+
+                        <div class="text-right">
+                            <a href="{{ route('pembeli.saya') }}" class="text-indigo-600 hover:underline text-sm font-medium">
+                                Detail Pesanan →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        <div class="text-right mt-6">
+            <a href="{{ route('pembeli.saya') }}" class="text-indigo-700 hover:underline font-medium text-sm">
+                Lihat Semua Pesanan →
+            </a>
+        </div>
+    @endif
+</section>
+
+
 {{-- ✅ Testimoni Pelanggan --}}
 <section class="bg-gray-100 py-12">
     <div class="max-w-7xl mx-auto px-6 text-center">

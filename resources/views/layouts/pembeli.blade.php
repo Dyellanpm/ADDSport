@@ -58,9 +58,6 @@
                 </span>
             </div>
             <div class="flex items-center space-x-4">
-                <button class="relative p-3 bg-gray-100 rounded-xl">
-                    <i class="fas fa-heart text-gray-600"></i>
-                </button>
                 <a href="{{ route('pembeli.keranjang.index') }}"
                    class="relative p-3 bg-gray-100 rounded-xl hover:bg-gray-200 transition">
                     <i class="fas fa-shopping-cart text-gray-600"></i>
