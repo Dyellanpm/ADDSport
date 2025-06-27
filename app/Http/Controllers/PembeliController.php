@@ -33,12 +33,7 @@ class PembeliController extends Controller
     {
         $user = auth()->user();
 
-        $items = $user->keranjang()->with('produk')->get();
-
-        if ($items->isEmpty()) {
-            return back()->with('error', 'Keranjang Anda kosong.');
-        }
-
+        // Validasi umum
         $validated = $request->validate([
             'nama' => 'required|string|max:100',
             'no_hp' => 'required|string|max:20',
@@ -59,25 +54,63 @@ class PembeliController extends Controller
             $pesanan->status = 'Diproses';
             $pesanan->save();
 
-            foreach ($items as $item) {
-                if ($item->produk->stok < $item->qty) {
-                    throw new \Exception("Stok untuk {$item->produk->nama} tidak mencukupi.");
+            // ==== CASE 1: Checkout banyak produk (dari form-checkout) ====
+            if (is_array($request->produk_id)) {
+                $produk_ids = $request->produk_id;
+                $qtys = $request->qty;
+                $sizes = $request->size;
+
+                foreach ($produk_ids as $i => $produk_id) {
+                    $produk = Product::findOrFail($produk_id);
+                    $qty = $qtys[$i];
+                    $size = $sizes[$i];
+
+                    if ($produk->stok < $qty) {
+                        throw new \Exception("Stok untuk {$produk->nama} tidak mencukupi.");
+                    }
+
+                    PesananItem::create([
+                        'pesanan_id' => $pesanan->id,
+                        'produk_id' => $produk_id,
+                        'qty' => $qty,
+                        'size' => $size,
+                    ]);
+
+                    $produk->decrement('stok', $qty);
                 }
 
-                // Tambahkan item ke pesanan
-                PesananItem::create([
-                    'pesanan_id' => $pesanan->id,
-                    'produk_id' => $item->produk_id,
-                    'qty' => $item->qty,
-                    'size' => $item->size,
-                ]);
-
-                // Kurangi stok produk
-                $item->produk->decrement('stok', $item->qty);
+                // Kosongkan keranjang
+                $user->keranjang()->delete();
             }
 
-            // Kosongkan keranjang
-            $user->keranjang()->delete();
+            // ==== CASE 2: Checkout 1 produk (dari halaman detail) ====
+            elseif ($request->filled('produk_id')) {
+                $request->validate([
+                    'produk_id' => 'required|exists:products,id',
+                    'qty' => 'required|integer|min:1',
+                    'size' => 'required|string|max:10',
+                ]);
+
+                $produk = Product::findOrFail($request->produk_id);
+
+                if ($produk->stok < $request->qty) {
+                    throw new \Exception("Stok untuk {$produk->nama} tidak mencukupi.");
+                }
+
+                PesananItem::create([
+                    'pesanan_id' => $pesanan->id,
+                    'produk_id' => $produk->id,
+                    'qty' => $request->qty,
+                    'size' => $request->size,
+                ]);
+
+                $produk->decrement('stok', $request->qty);
+            }
+
+            // ==== CASE 3: Tidak valid ====
+            else {
+                throw new \Exception('Data checkout tidak lengkap.');
+            }
 
             DB::commit();
             return redirect()->route('pembeli.saya')->with('success', 'Pesanan berhasil dibuat!');
@@ -86,6 +119,7 @@ class PembeliController extends Controller
             return back()->with('error', 'Checkout gagal: ' . $e->getMessage());
         }
     }
+
 
     public function saya()
     {

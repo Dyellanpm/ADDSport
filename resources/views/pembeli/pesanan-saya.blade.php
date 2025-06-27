@@ -70,10 +70,6 @@
                            class="bg-indigo-600 text-white text-sm px-4 py-2 rounded-full hover:bg-indigo-700 transition font-medium">
                             Lanjut Belanja
                         </a>
-                        <a href="{{ route('pembeli.selesai') }}" 
-                           class="bg-gray-200 text-gray-700 text-sm px-4 py-2 rounded-full hover:bg-gray-300 transition font-medium">
-                            Detail
-                        </a>
 
                         {{-- ✔️ Pesanan Diterima --}}
                         @if($pesanan->status === 'Dikirim')

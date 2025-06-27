@@ -58,11 +58,6 @@
                                     </div>
                                     <span class="text-xl font-bold gradient-text">ADDsports</span>
                                 </a>
-                                <div class="hidden md:flex items-center space-x-8">
-                                    <a href="#" class="text-gray-700 hover:text-indigo-600 font-medium">Dashboard</a>
-                                    <a href="#" class="text-gray-700 hover:text-indigo-600 font-medium">Produk</a>
-                                    <a href="#" class="text-gray-700 hover:text-indigo-600 font-medium">Tentang</a>
-                                </div>
                                 <div class="flex items-center space-x-4">
                                     <button class="p-2 text-gray-600 hover:text-rose-600">
                                         <i class="fas fa-shopping-cart"></i>
