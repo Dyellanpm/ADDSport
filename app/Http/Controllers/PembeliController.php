@@ -22,4 +22,15 @@ class PembeliController extends Controller
     {
         return view('pembeli.checkout');
     }
+
+    public function saya()
+    {
+        return view('pembeli.pesanan-saya');
+    }
+
+    public function selesai()
+    {
+        return view('pembeli.pesanan-selesai');
+    }
+    
 }
